@@ -1,0 +1,25 @@
+* Make a data structure for http requests
+	- what do we want to know about the requests?
+		* the flow of requests per parameter i.e.
+			request (params) -> state_1 -> request (params')
+															|
+															v
+														state_3
+			- build a representation of the flow of the http app
+				show if the parameters used have the right properties
+				i.e. cookies, paswords etc
+			- see if params have different behavior in different
+				parts of flow
+			- see if there are requivalent behaviours
+			- other graph theory coolnes of course
+
+* Linked list of state nodes
+	- state nodes must keep track of
+		- request / response objects (probably save a hash of the object?)
+			* make sure I can track all the properties
+				- might want to empty it into a db
+
+* add graphing modes - perhas build a tree prepresentation
+	per parameter? (node)-[parameter]->(node)
+* python graph db might work well for this: neo4j
+	- 
