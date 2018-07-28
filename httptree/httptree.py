@@ -73,6 +73,7 @@ class Request:
 	def __init__(self,\
 						headers=dict(),\
 						cookies=dict(),\
+						params=dict(),
 						url=dict(),\
 						method="get",\
 						files=dict(),\
@@ -82,9 +83,11 @@ class Request:
 						cert=None,\
 						allow_redirects=True,
 						merge_response=True):
+
+		self.params = params
 		self.attribute_dict = attribute_dict
 		self.merge_response = merge_response
-
+		self.hash = ""
 		self.headers = headers
 		self.cookies = cookies
 		self.url = url
@@ -153,6 +156,21 @@ class Request:
 	def hash_content(self):
 		#make a hash of the content, we probably need to subdivide this further?
 		return
+	def show(self):
+		doc_string = ""
+		tag = ">>>"
+		if self.method and self.url:
+			doc_string += self.method+" "+self.url+"\n"
+		if self.headers:
+			for header in self.headers:
+				doc_string += tag + "%s:%s\n"	% (header,self.headers[header])
+		if self.params:
+			doc_string += tag
+			for index,param in enumerate(self.params):
+				if index != len(self.params) -1:
+					doc_string += "%s=%s&" % (param,self.params[param])
+				else:
+					doc_string += "%s=%s\n" % (param,self.params[param])
 class Edge:
 	def __init__(self,request,response,ttl=100):
 		self.ttl = ttl #amount of times to re-request before dying in the 
